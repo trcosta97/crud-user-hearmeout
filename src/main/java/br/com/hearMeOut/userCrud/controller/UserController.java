@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+
 public class UserController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private AddressService addressService;
 
-    @PostMapping("/signin")
+    @PostMapping("/user")
     public ResponseEntity<User> signUp(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
@@ -37,27 +37,27 @@ public class UserController {
         return ResponseEntity.created(uri).body(savedUser);
     }
 
-    @GetMapping("get/{id}")
+    @GetMapping("user/{id}")
     public ResponseEntity<User> getUser(@RequestParam Long id){
         var user = userService.get(id);
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("get/all")
+    @GetMapping("user/all")
     public ResponseEntity<List<User>> getAllUsers(){
         var allUsers = userService.getAll();
         return ResponseEntity.ok(allUsers);
     }
 
 
-    @PutMapping("update/{id}")
+    @PutMapping("user/{id}")
     public ResponseEntity<User> update(@RequestBody UserUpdateData data, @RequestParam Long id){
         var user = new User(data);
         User updatedUser = userService.update(id, user);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("user/{id}")
     public ResponseEntity<User> delete(@RequestParam Long id){
         return ResponseEntity.ok(userService.delete(id));
     }
