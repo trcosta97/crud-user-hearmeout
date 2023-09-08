@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private AddressService addressService;
 
-    @PostMapping("/user")
+    @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
@@ -50,7 +50,7 @@ public class UserController {
     }
 
 
-    @PutMapping("user/{id}")
+    @PutMapping("update")
     public ResponseEntity<User> update(@PathVariable UserUpdateData data, @RequestParam Long id){
         var user = new User(data);
         User updatedUser = userService.update(id, user);
