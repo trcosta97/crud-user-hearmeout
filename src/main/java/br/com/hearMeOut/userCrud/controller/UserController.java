@@ -1,37 +1,38 @@
 package br.com.hearMeOut.userCrud.controller;
 
 import br.com.hearMeOut.userCrud.domain.address.Address;
+import br.com.hearMeOut.userCrud.domain.address.AddressRepository;
 import br.com.hearMeOut.userCrud.domain.user.User;
+import br.com.hearMeOut.userCrud.domain.user.UserRepository;
 import br.com.hearMeOut.userCrud.domain.user.UserSignInData;
 import br.com.hearMeOut.userCrud.domain.user.UserUpdateData;
-import br.com.hearMeOut.userCrud.service.AddressService;
-import br.com.hearMeOut.userCrud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
-    private AddressService addressService;
+    private AddressRepository addressRepository;
 
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
 
-        Address savedAddress = addressService.save(address);
+        Address savedAddress = addressRepository.save(address);
         user.setAddress(savedAddress);
 
-        User savedUser = userService.save(user);
+        User savedUser = userRepository.save(user);
 
         var uri = uriBuilder.path("/user/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(uri).body(savedUser);
@@ -39,26 +40,47 @@ public class UserController {
 
     @GetMapping("user/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id){
-        var user = userService.get(id);
-        return ResponseEntity.ok(user);
+        var optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            return ResponseEntity.ok(user);
+        }
+        return null;
     }
 
     @GetMapping("user/all")
     public ResponseEntity<List<User>> getAllUsers(){
-        var allUsers = userService.getAll();
+        var allUsers = userRepository.findAllByStatusTrue();
         return ResponseEntity.ok(allUsers);
     }
 
 
     @PutMapping("update")
-    public ResponseEntity<User> update(@PathVariable UserUpdateData data, @RequestParam Long id){
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateData data){
         var user = new User(data);
-        User updatedUser = userService.update(id, user);
-        return ResponseEntity.ok(updatedUser);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()){
+            User updatedUser = optionalUser.get();
+            if(data.password() != null){
+                updatedUser.setPassword(data.password());
+            }
+            if(data.email() != null){
+                updatedUser.setEmail(data.email());
+            }
+            return ResponseEntity.ok(updatedUser);
+        }
+        return null;
     }
 
     @DeleteMapping("user/{id}")
     public ResponseEntity<User> delete(@PathVariable Long id){
-        return ResponseEntity.ok(userService.delete(id));
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()){
+            User deletedUser = optionalUser.get();
+            deletedUser.setStatus(false);
+            userRepository.save(deletedUser);
+            return ResponseEntity.ok(deletedUser);
+        }
+        return null;
     }
 }
