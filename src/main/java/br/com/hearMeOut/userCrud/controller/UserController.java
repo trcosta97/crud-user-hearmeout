@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private AddressRepository addressRepository;
 
-    @PostMapping("/signup")
+    @PostMapping("user/signup")
     public ResponseEntity<User> signUp(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
@@ -55,7 +55,7 @@ public class UserController {
     }
 
 
-    @PutMapping("update")
+    @PutMapping("user/update")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateData data){
         var user = new User(data);
         Optional<User> optionalUser = userRepository.findById(id);
