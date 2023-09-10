@@ -16,7 +16,8 @@ Nesse caso, a iniciativa também promove a inclusão e acessibilidade para um p�
 - Economia de Tempo e Esforço  
 - Ampliação da Base de Clientes  
 - Responsabilidade Social e Imagem Corporativa  
-- Conveniência para Todos  
+- Conveniência para Todos    
+  
 Em resumo, o projeto "HearMeOut" não apenas atende a uma necessidade importante de acessibilidade para pessoas com deficiência visual, mas também oferece vantagens comerciais, sociais e de imagem corporativa para a Plusoft. Ao investir na acessibilidade e na inclusão, a empresa está alinhada com os valores contemporâneos de diversidade e igualdade, ao mesmo tempo em que amplia sua base de clientes e melhora a experiência do usuário para todos os públicos.
 
 ## JSON para a API:
