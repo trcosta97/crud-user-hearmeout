@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -24,8 +24,8 @@ public class UserController {
     @Autowired
     private AddressRepository addressRepository;
 
-    @PostMapping("user/signup")
-    public ResponseEntity<User> signUp(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
+    @PostMapping
+    public ResponseEntity cadastro(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
 
@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(savedUser);
     }
 
-    @GetMapping("user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id){
         var optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
@@ -48,14 +48,14 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("user/all")
+    @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         var allUsers = userRepository.findAllByStatusTrue();
         return ResponseEntity.ok(allUsers);
     }
 
 
-    @PutMapping("user/update")
+    @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateData data){
         var user = new User(data);
         Optional<User> optionalUser = userRepository.findById(id);
@@ -72,7 +72,7 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable Long id){
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isPresent()){
