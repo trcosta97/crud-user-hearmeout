@@ -40,7 +40,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id){
-        var optionalUser = userRepository.findById(id);
+        var optionalUser = userRepository.findByIdAndStatusTrue(id);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
             return ResponseEntity.ok(user);
