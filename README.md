@@ -20,6 +20,27 @@ Nesse caso, a iniciativa também promove a inclusão e acessibilidade para um p�
   
 Em resumo, o projeto "HearMeOut" não apenas atende a uma necessidade importante de acessibilidade para pessoas com deficiência visual, mas também oferece vantagens comerciais, sociais e de imagem corporativa para a Plusoft. Ao investir na acessibilidade e na inclusão, a empresa está alinhada com os valores contemporâneos de diversidade e igualdade, ao mesmo tempo em que amplia sua base de clientes e melhora a experiência do usuário para todos os públicos.
 
+## Deploy
+Vídeo msotrando como fazer o deploy:
+https://youtu.be/Wo-WyxJYj3A
+
+Antes de tudo, é importante que você tenha uma conta no Github e tenha um repositório com uma API springboot.  
+Depois disso é preciso que você faça login [Railway App](railway.app) com a sua conta Github e crie um novo projeto no seu Dashboard e pronto: o processo é super intuitivo, qualquer dúvida é só seguir os passos do [vídeo](https://youtu.be/Wo-WyxJYj3A).  
+
+### Mas por que usar o Railway App?
+Ao considerar a plataforma de hospedagem para nosso projeto, avaliamos cuidadosamente várias opções, incluindo o Microsoft Azure. No entanto, após uma análise abrangente, optamos pelo Railway App por vários motivos fundamentais:
+
+#### Facilidade de Uso e Rapidez de Implantação:
+O Railway App ofereceu uma experiência de implantação simplificada e mais rápida em comparação com o Microsoft Azure. Sua interface intuitiva e a integração perfeita com nosso código facilitaram a implantação e o gerenciamento da aplicação em questão de minutos.
+
+#### Adequação ao Escopo do Projeto:
+Para o nosso projeto atual, que é um aplicativo de menor escala, o Railway App atendeu perfeitamente às nossas necessidades de hospedagem. Não precisávamos dos recursos escaláveis e complexos oferecidos pelo Azure, o que teria adicionado complexidade e custos desnecessários.
+
+#### Evolução do Projeto:
+Planejamos continuar avaliando nossas necessidades de hospedagem à medida que nosso projeto evolui. Embora o Microsoft Azure seja uma opção robusta para projetos de grande escala, escolher o Railway App inicialmente nos permitiu concentrar nossos recursos em outras áreas do projeto, como desenvolvimento e melhorias de recursos.
+
+Em resumo, a escolha do Railway App em vez do Microsoft Azure foi uma decisão estratégica baseada nas necessidades específicas do nosso projeto atual, levando em consideração fatores como facilidade de uso, custos, integração e suporte. À medida que nossa aplicação cresce e nossas necessidades mudam, estaremos abertos a reavaliar nossas opções de hospedagem para garantir que continuemos a atender às demandas do nosso público e da nossa equipe de desenvolvimento.
+
 ## JSON para a API:
 ### Cadastro de usuário:
 URL: "/user"  
@@ -39,16 +60,6 @@ VERBO: POST
     "complement": "string"
   },
   "gender": "MASCULINE"
-}
-```
-
-### Atualização de usuário:
-URL: "/user"    
-VERBO: PUT    
-```console
-{
-  "email": "string",
-  "password": "string"
 }
 ```
 
