@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private AddressRepository addressRepository;
 
-    @PostMapping
+    @PostMapping("/post")
     public ResponseEntity cadastro(@RequestBody UserSignInData data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         var address = new Address(data.address());
@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(savedUser);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id){
         var optionalUser = userRepository.findByIdAndStatusTrue(id);
         if (optionalUser.isPresent()){
@@ -48,14 +48,14 @@ public class UserController {
         return null;
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<User>> getAllUsers(){
         var allUsers = userRepository.findAllByStatusTrue();
         return ResponseEntity.ok(allUsers);
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateData data){
         var user = new User(data);
         Optional<User> optionalUser = userRepository.findById(id);
@@ -72,7 +72,7 @@ public class UserController {
         return null;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> delete(@PathVariable Long id){
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isPresent()){
